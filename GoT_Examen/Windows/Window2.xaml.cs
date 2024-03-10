@@ -25,16 +25,32 @@ namespace GoT_Examen
             InitializeComponent();
 
             txtChoice.Text = "Below you find the different difficulty levels of this quiz.\n\n"+
-                "Please click on a button to enter the quiz.";
+                                "Please choose on a level to enter the quiz.";
             
         }
 
         private void btnEasy_Click(object sender, RoutedEventArgs e)
         {
-            QuizWindow EasyWindow = new QuizWindow();
-            this.Close();
-            EasyWindow.Show();
+            OpenQuizWindow("Easy");
         }
-    }
 
+        private void btnIntermediate_Click(object sender, RoutedEventArgs e)
+        {
+            OpenQuizWindow("Intermediate");
+        }
+
+        private void btnHard_Click(object sender, RoutedEventArgs e)
+        {
+            OpenQuizWindow("Hard");
+        }
+
+        
+        private void OpenQuizWindow(string buttonClicked)
+        {
+            QuizWindow quizWindow = new QuizWindow(buttonClicked);
+            this.Close();
+            quizWindow.Show();
+        }
+
+    }
 }

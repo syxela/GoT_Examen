@@ -19,11 +19,28 @@ namespace GoT_Examen.Windows
     /// </summary>
     public partial class QuizWindow : Window
     {
-        public QuizWindow()
-        {
-            InitializeComponent();
+            private string _buttonClicked;
+
+            public QuizWindow(string buttonClicked)
+            {
+                InitializeComponent();
+                _buttonClicked = buttonClicked;
+
+              
+                if (_buttonClicked == "Easy")
+                {
+
+                }
+                else if (_buttonClicked == "Intermediate")
+                {
+
+                }
+                else if (_buttonClicked == "Hard")
+                {
+
+                }
+            }
         }
 
-        
+
     }
-}
