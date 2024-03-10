@@ -15,7 +15,7 @@
             <RowDefinition Height="150" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Button x:Name="btnEasy" Content="Easy" Margin="10"/>
+            <Button x:Name="btnEasy" Content="Easy" Margin="10" Click="btnEasy_Click"/>
             <Button x:Name="btnIntermediate" Content="Intermediate" Margin="10"/>
             <Button x:Name="btnHard" Content="Hard" Margin="10"/>
         </StackPanel>

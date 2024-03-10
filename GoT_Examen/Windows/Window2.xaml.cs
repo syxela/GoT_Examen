@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GoT_Examen.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,13 @@ namespace GoT_Examen
             txtChoice.Text = "Below you find the different difficulty levels of this quiz.\n\n"+
                 "Please click on a button to enter the quiz.";
             
+        }
+
+        private void btnEasy_Click(object sender, RoutedEventArgs e)
+        {
+            QuizWindow EasyWindow = new QuizWindow();
+            this.Close();
+            EasyWindow.Show();
         }
     }
 
