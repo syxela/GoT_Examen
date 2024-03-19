@@ -24,7 +24,7 @@ namespace GoT_Examen.Windows
     {
         private string _buttonClicked;
         string apiUrl = "https://api.gameofthronesquotes.xyz/v1/random";
-        string apiUrl2 = "https://api.gameofthronesquotes.xyz/v1/random";
+        string apiUrl2 = "";
         public QuizWindow(string buttonClicked)
         {
             InitializeComponent();
