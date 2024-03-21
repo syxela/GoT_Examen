@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace GoT_Examen.Klassen
 {
-    public class Characters
-    {
-        public string Name { get; set; }
-        public House House { get; set; }
-        public List<string> Quotes { get; set; }
-    }
-
     public class House
     {
-        public string Name { get; set; }
+        public string slug { get; set; }
+        public string name { get; set; }
+    }
+
+    public class Character
+    {
+        public string name { get; set; }
+        public string slug { get; set; }
+        public House house { get; set; }
+        public List<string> quotes { get; set; }
     }
 
     public class CharacterImage
     {
-        public string FullName { get; set; }
-        public string Image { get; set; }
-        public string ImageUrl { get; set; }
+        public string fullName { get; set; }
+        public string imageUrl { get; set; }
     }
 }
