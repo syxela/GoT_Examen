@@ -84,10 +84,12 @@ namespace GoT_Examen.Windows
                 }
 
                 // Wijs de afbeeldingen toe aan de Image-elementen
-                imgChar1.Source = new BitmapImage(new Uri(characterImages[0].imageUrl));
-                imgChar2.Source = new BitmapImage(new Uri(characterImages[1].imageUrl));
-                imgChar3.Source = new BitmapImage(new Uri(characterImages[2].imageUrl));
-                imgChar4.Source = new BitmapImage(new Uri(characterImages[3].imageUrl));
+                    imgChar1.Source = new BitmapImage(new Uri(characterImages[0].imageUrl));
+                    imgChar2.Source = new BitmapImage(new Uri(characterImages[1].imageUrl));
+                    imgChar3.Source = new BitmapImage(new Uri(characterImages[2].imageUrl));
+                    imgChar4.Source = new BitmapImage(new Uri(characterImages[3].imageUrl));
+             
+
             }
         }
 
@@ -107,15 +109,18 @@ namespace GoT_Examen.Windows
                     List<CharacterImage> characterImages = JsonSerializer.Deserialize<List<CharacterImage>>(responseBody);
 
                     // Zoek de volledige naam voor elk personage uit de lijst van characters
-                    foreach (var character in characters)
-                    {
-                        CharacterImage characterImage = characterImages.FirstOrDefault(c => c.fullName == character.name);
-                        if (characterImage != null)
-                        {
-                            fullNames.Add(characterImage.fullName);
+                    while(fullNames.Count < 4) 
+                    { 
+                        foreach (var character in characters)
+                            {
+                                CharacterImage characterImage = characterImages.FirstOrDefault(c => c.fullName == character.name);
+                                if (characterImage != null)
+                                {
+                                    fullNames.Add(characterImage.fullName);
+                                }
+                            }
                         }
                     }
-                }
                 catch (HttpRequestException ex)
                 {
                     // Fout bij het maken van de HTTP-request
@@ -130,6 +135,7 @@ namespace GoT_Examen.Windows
 
             return fullNames;
         }
+
 
         private async Task<string> GetCharacterImageUrl(string characterName)
         {
