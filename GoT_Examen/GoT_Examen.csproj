@@ -10,10 +10,16 @@
 
   <ItemGroup>
     <None Remove="home_image.jpeg" />
+    <None Remove="Windows\Mid.jpg" />
+    <None Remove="Windows\Quote.jpeg" />
+    <None Remove="Windows\Start.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="home_image.jpeg" />
+    <Resource Include="Windows\Mid.jpg" />
+    <Resource Include="Windows\Quote.jpeg" />
+    <Resource Include="Windows\Start.jpg" />
   </ItemGroup>
 
 </Project>

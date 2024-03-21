@@ -13,4 +13,3 @@ namespace GoT_Examen.Klassen
         public string Quote { get; set; }
     }
 }
-}

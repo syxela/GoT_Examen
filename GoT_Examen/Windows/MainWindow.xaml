@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GoT_Examen"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowState="Maximized">
+        Title="MainWindow" Height="450" Width="800" WindowState="Maximized" Icon="/Windows/Start.jpg">
     <Grid>
         <Grid.Background>
-            <ImageBrush x:Name="imgBackground" ImageSource="/home_image.jpeg"/>
+            <ImageBrush x:Name="imgBackground" ImageSource="/Windows/Start.jpg"/>
         </Grid.Background>
         <Button x:Name="btnHomeContinue" Content="Continue" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black" BorderBrush="#FF484848" Foreground="#FFFFDE00" Height="36" Width="92" FontSize="18" Margin="0,650,0,0" Click="btnHomeContinue_Click">
             <Button.Style>
@@ -37,6 +37,6 @@
                 </Style>
             </Button.Style>
         </Button>
-        <TextBlock x:Name="txtIntro" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="" FontSize="20" FontStyle="Italic" FontWeight="Bold"/>
+        <TextBlock x:Name="txtIntro" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" TextWrapping="Wrap" Text="" FontSize="20" FontStyle="Italic" FontWeight="Bold" Foreground="White" Margin="0,50,0,0" MaxWidth="850"/>
     </Grid>
 </Window>

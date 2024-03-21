@@ -6,19 +6,44 @@
         xmlns:local="clr-namespace:GoT_Examen"
         mc:Ignorable="d"
         Title="Window2" Height="450" Width="800" WindowState="Maximized">
+    <Window.Resources>
+        <Style x:Key="ButtonHoverStyle" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="#FFFFDE00"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Button.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="#FF404040" Duration="0:0:0.6"/>
+                            <ColorAnimation Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" To="#FF483304" Duration="0:0:0.6"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Button.MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.6"/>
+                            <ColorAnimation Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" To="#FFFFDE00" Duration="0:0:0.6"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush x:Name="imgBackground" ImageSource="/home_image.jpeg"/>
+            <ImageBrush x:Name="imgBackground" ImageSource="/Windows/Mid.jpg" AlignmentY="Center" AlignmentX="Center" Stretch="Fill"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="150" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Button x:Name="btnEasy" Content="Easy" Margin="10" Click="btnEasy_Click"/>
-            <Button x:Name="btnIntermediate" Content="Intermediate" Margin="10" Click="btnIntermediate_Click"/>
-            <Button x:Name="btnHard" Content="Hard" Margin="10" Click="btnHard_Click"/>
+            <Button x:Name="btnEasy" Content="Easy" Style="{StaticResource ButtonHoverStyle}" Margin="10" Click="btnEasy_Click"/>
+            <Button x:Name="btnIntermediate" Content="Intermediate" Style="{StaticResource ButtonHoverStyle}" Margin="10" Click="btnIntermediate_Click"/>
+            <Button x:Name="btnHard" Content="Hard" Style="{StaticResource ButtonHoverStyle}" Margin="10" Click="btnHard_Click"/>
         </StackPanel>
-        <TextBlock x:Name="txtChoice" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="" FontSize="20" FontStyle="Italic" FontWeight="Bold"/>
+        <TextBlock x:Name="txtChoice" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="" FontSize="30" FontStyle="Italic" FontWeight="Bold" Foreground="#FFC8C8C8"/>
     </Grid>
 </Window>

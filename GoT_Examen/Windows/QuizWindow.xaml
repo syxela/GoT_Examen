@@ -8,7 +8,7 @@
         Title="QuizWindow" Height="450" Width="800" WindowState="Maximized">
     <Grid>
         <Grid.Background>
-            <ImageBrush x:Name="imgBackground" ImageSource="/home_image.jpeg"/>
+            <ImageBrush x:Name="imgBackground" ImageSource="/Windows/Quote.jpeg"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
