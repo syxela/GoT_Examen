@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GoT_Examen.Klassen; // Voeg de namespace van de klassen toe
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -13,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static System.Net.WebRequestMethods;
 
 namespace GoT_Examen.Windows
 {
@@ -23,25 +23,19 @@ namespace GoT_Examen.Windows
     public partial class QuizWindow : Window
     {
         private string _buttonClicked;
+        private string correctCharacterName; // Variabele om de naam van het correcte karakter bij te houden
         string apiUrl = "https://api.gameofthronesquotes.xyz/v1/random";
-        string apiUrl2 = "";
+        string apiUrl2 = "https://thronesapi.com/api/v2/Characters"; // Tweede API-URL toegevoegd
+
         public QuizWindow(string buttonClicked)
         {
             InitializeComponent();
             _buttonClicked = buttonClicked;
 
-
-            if (_buttonClicked == "Easy")
-            {
-                GetQuote(); 
-            }
-            else if (_buttonClicked == "Intermediate")
+            if (_buttonClicked == "Easy" || _buttonClicked == "Intermediate" || _buttonClicked == "Hard") // Check of de knop is ingedrukt
             {
                 GetQuote();
-            }
-            else if (_buttonClicked == "Hard")
-            {
-                GetQuote();
+                GetCharacters(); // Roep de methode op om de afbeeldingen op te halen
             }
         }
 
@@ -49,27 +43,73 @@ namespace GoT_Examen.Windows
         {
             using (HttpClient client = new HttpClient())
             {
-                HttpResponseMessage response = await client.GetAsync(apiUrl);
-                response.EnsureSuccessStatusCode();
-                string responseBody = await response.Content.ReadAsStringAsync();
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = await response.Content.ReadAsStringAsync();
 
-                JsonDocument jsonResponse = JsonDocument.Parse(responseBody);
+                    JsonDocument jsonResponse = JsonDocument.Parse(responseBody);
 
-                string Quote = jsonResponse.RootElement.GetProperty("sentence").GetString();
-                //string Author = jsonResponse.RootElement.GetProperty("name").GetString();
+                    string quote = jsonResponse.RootElement.GetProperty("sentence").GetString();
+                    correctCharacterName = jsonResponse.RootElement.GetProperty("character").GetProperty("name").GetString(); // Sla de naam van het correcte karakter op
 
-                txtQuote.Text = Quote;
+                    // Voeg "Quote: " toe aan de opgehaalde citaatstring
+                    quote = "Quote: " + quote;
 
+                    txtQuote.Text = quote;
+                }
+                catch (HttpRequestException ex)
+                {
+                    // Fout bij het maken van de HTTP-request
+                    txtQuote.Text = $"Fout bij het maken van de HTTP-request: {ex.Message}";
+                }
+                catch (JsonException ex)
+                {
+                    // Fout bij het deserialiseren van de JSON
+                    txtQuote.Text = $"Fout bij het deserialiseren van de JSON: {ex.Message}";
+                }
             }
-
         }
 
         private async void GetCharacters()
         {
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl2);
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = await response.Content.ReadAsStringAsync();
 
+                    // Deserialiseer de JSON-response naar een lijst van karakters voor de tweede API
+                    List<CharacterImage> characters = JsonSerializer.Deserialize<List<CharacterImage>>(responseBody);
+
+                    // Haal 4 willekeurige karakters op
+                    Random random = new Random();
+                    List<CharacterImage> randomCharacters = characters.OrderBy(c => random.Next()).Take(4).ToList();
+
+                    // Vul de afbeeldingen in
+                    List<Image> imageControls = new List<Image> { imgChar1, imgChar2, imgChar3, imgChar4 };
+                    for (int i = 0; i < 4; i++)
+                    {
+                        string imageUrl = randomCharacters[i].ImageUrl;
+                        imageControls[i].Source = new BitmapImage(new Uri(imageUrl));
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    // Fout bij het maken van de HTTP-request
+                    MessageBox.Show($"Fout bij het maken van de HTTP-request: {ex.Message}");
+                }
+                catch (JsonException ex)
+                {
+                    // Fout bij het deserialiseren van de JSON
+                    MessageBox.Show($"Fout bij het deserialiseren van de JSON: {ex.Message}");
+                }
+            }
         }
+
+
     }
 }
-
-
-   

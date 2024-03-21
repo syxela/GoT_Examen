@@ -15,10 +15,11 @@
             <RowDefinition Height="250" />
         </Grid.RowDefinitions>
         <TextBlock x:Name="txtQuote" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,250" FontSize="24" FontStyle="Italic" FontWeight="Bold" />
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Image x:Name="imgChar1"/>
-            <Image x:Name="imgChar2"/>
-            <Image x:Name="imgChar3"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image x:Name="imgChar1" Width="150" Height="200"/>
+            <Image x:Name="imgChar2" Width="150" Height="200" Margin="10,0,10,0"/>
+            <Image x:Name="imgChar3" Width="150" Height="200" Margin="10,0,10,0"/>
+            <Image x:Name="imgChar4" Width="150" Height="200"/>
         </StackPanel>
     </Grid>
 </Window>
