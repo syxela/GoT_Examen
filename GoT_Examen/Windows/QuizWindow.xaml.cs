@@ -41,6 +41,11 @@ namespace GoT_Examen.Windows
                 // Toon de gekozen quote in de txtQuote
                 txtQuote.Text = "Quote: " + randomQuote;
                 correctCharacterName = randomCharacter.name;
+                if(correctCharacterName == "\"Eddard \\\"Ned\\\" Stark\"")
+                {
+                    correctCharacterName = "\"Ned Stark\"";
+                }
+               
                 GetCharacters(correctCharacterName);
             }
             else
