@@ -40,12 +40,16 @@ namespace GoT_Examen.Windows
                 string randomQuote = randomCharacter.quotes[random.Next(randomCharacter.quotes.Count)];
                 // Toon de gekozen quote in de txtQuote
                 txtQuote.Text = "Quote: " + randomQuote;
+
                 correctCharacterName = randomCharacter.name;
-                if(correctCharacterName == "\"Eddard \\\"Ned\\\" Stark\"")
+                //Indien correctCharacterName = Ed Stark aanpassen zodat het in verdere methodes nog gebruikt kan worden
+
+                if (correctCharacterName == "\"Eddard \\\"Ned\\\" Stark\"")
                 {
                     correctCharacterName = "\"Ned Stark\"";
                 }
-               
+
+                // Pass the modified value to GetCharacters method
                 GetCharacters(correctCharacterName);
             }
             else
@@ -65,14 +69,30 @@ namespace GoT_Examen.Windows
                 // Kies willekeurig vier personages
                 List<Character> selectedCharacters = new List<Character>();
 
+              
                 //Zorgen dat correcte character zeker in de lijst zit 
-                selectedCharacters.Add(characters.Find(c => c.name == correctChar));
+                selectedCharacters.Insert(random.Next(selectedCharacters.Count + 1), 
+                    characters.Find(c => c.name == correctChar));
 
+                //Lijst met de random gekozen characters 
+                List<Character> randomCharacters = characters.OrderBy(x => random.Next()).ToList();
+                randomCharacters.RemoveAll(c => c.name == correctChar);
+                
+                // Voeg drie willekeurige personages toe aan de lijst
                 for (int i = 0; i < 3; i++)
                 {
-                    Character randomCharacter = characters[random.Next(characters.Count)];
-                    selectedCharacters.Add(randomCharacter);
+                    // Controleer of het gekozen personage al in de lijst zit
+                    // Als het er al in zit, kiezen we een nieuw willekeurig personage
+                    while (selectedCharacters.Contains(randomCharacters[i]))
+                    {
+                        randomCharacters.RemoveAt(i); 
+                        i--; 
+                    }
+                    // Voeg het willekeurige personage toe aan een willekeurige index in de lijst
+                    selectedCharacters.Insert(random.Next(selectedCharacters.Count + 1), randomCharacters[i]);
                 }
+
+
                 // Haal de volledige namen van de personages op
                 List<string> fullNames = await GetCharacterFullNames(selectedCharacters);
                 // Maak een lijst met CharacterImage-objecten
@@ -83,6 +103,7 @@ namespace GoT_Examen.Windows
                     characterImages.Add(new CharacterImage { fullName = fullName, imageUrl = imageUrl });
                 }
 
+
                 // Wijs de afbeeldingen toe aan de Image-elementen
                 imgChar1.Source = new BitmapImage(new Uri(characterImages[0].imageUrl));
                 imgChar2.Source = new BitmapImage(new Uri(characterImages[1].imageUrl));
@@ -92,6 +113,8 @@ namespace GoT_Examen.Windows
 
             }
         }
+       
+
 
         private async Task<List<string>> GetCharacterFullNames(List<Character> characters)
         {
