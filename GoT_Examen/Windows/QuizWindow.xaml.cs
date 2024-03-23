@@ -90,6 +90,13 @@ namespace GoT_Examen.Windows
                     }
                     // Voeg het willekeurige personage toe aan een willekeurige index in de lijst
                     selectedCharacters.Insert(random.Next(selectedCharacters.Count + 1), randomCharacters[i]);
+
+                    var characterToReplace = selectedCharacters.FirstOrDefault(character => character.name == "\"Eddard \\\"Ned\\\" Stark\"");
+                    if (characterToReplace != null)
+                    {
+                        // Wissel Characters name naar "Ned Stark"
+                        characterToReplace.name = "\"Ned Stark\"";
+                    }
                 }
 
 
@@ -130,19 +137,20 @@ namespace GoT_Examen.Windows
                     List<CharacterImage> characterImages = JsonSerializer.Deserialize<List<CharacterImage>>(responseBody);
 
                     // Zoek de volledige naam voor elk personage uit de lijst van characters
-                    while (fullNames.Count < 4)
+                    foreach (var character in characters)
                     {
-                        foreach (var character in characters)
+                        CharacterImage characterImage = characterImages.FirstOrDefault(c => c.fullName == character.name);
+                        if (characterImage != null)
                         {
-                            CharacterImage characterImage = characterImages.FirstOrDefault(c => c.fullName == character.name);
-                            if (characterImage != null)
-                            {
-                                fullNames.Add(characterImage.fullName);
-                            }
+                            fullNames.Add(characterImage.fullName);
+                        }
+                        if (fullNames.Count >= 4)
+                        {
+                            // If we already have 4 full names, break out of the loop
+                            break;
                         }
                     }
                 }
-
 
                 catch (HttpRequestException ex)
                 {
